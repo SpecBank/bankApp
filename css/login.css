@@ -1,0 +1,82 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+body::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(45deg, #fa6636, #fa6636 50%, #fbbe3f 50%, #fbbe3f);
+    z-index: -1;
+}
+body::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(160deg, #30aed9, #30aed9 50%, transparent 50%, transparent);
+    z-index: -1;
+}
+.loginBox{
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 320px;
+    height: 420px;
+    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    color: white;
+}
+.loginBox span{
+    font-weight: 600;
+    font-size: 2.3em;
+    margin-bottom: 25px;
+    transition: .2s;
+}
+.loginBox span:hover{
+    letter-spacing: 2px;
+    transition: .3s;
+}
+.loginBox .login, .pass{
+    text-align: center;
+    outline-width: 0px;
+    border: none;
+    border-radius: 15px;
+    padding: 7px 1px;
+    margin-bottom: 15px;
+    font-weight: 420;
+}
+.loginBox button{
+    border: none;
+    outline-width: 0px;
+    padding: 6px 15px;
+    border-radius: 15px;
+    margin-top: 10px;
+    transition: .3s;
+}
+
+.loginBox button:hover{
+    background-color: #94acb4;
+}
