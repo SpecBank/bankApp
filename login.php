@@ -29,7 +29,7 @@
             
             async function Leave(){
                 await sleep(3000);
-                window.location.replace('" . $link . "/index.html')
+                window.location.replace('" . $link . "/index.php')
             }
 
             Leave();
@@ -80,8 +80,8 @@
 
         } 
     else{
-            echo "You dont have access to this site. You will be redirected in 3 seconds...";
-            back();
+        echo "You dont have access to this site. You will be redirected in 3 seconds...";
+        back();
     }
 
 ?>

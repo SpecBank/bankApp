@@ -7,34 +7,20 @@
     <title>nBank - Strona Banku</title>
 </head>
 <body>
-    <?php
-        include "db_config.php";
-        mysqli_query($conn, "SET NAMES 'utf8'");
-        if(isset($_COOKIE["token"])){
-            $token = $_COOKIE["token"];
-            $sql = "SELECT * FROM loginlog WHERE token='$token'";
-            $result = mysqli_query($conn, $sql);
-            $result = mysqli_fetch_assoc($result);
-            if ($result != ""){
-                $then = new DateTime($result["data"]);
-                $now = new DateTime(date("Y-m-d H:i:s"));
-                $interval= $now->diff($then);
-                if ($interval->y == 0 && $interval->d == 0 && $interval->m == 0 && $interval->h == 0 && $interval->i < 30){
-                    $id = $result["user_ID"];
-                    $sql = "SELECT * FROM users WHERE ID='$id'";
-                    $result = mysqli_query($conn, $sql);
-                    $result = mysqli_fetch_assoc($result);
-                    echo("Witaj, " . $result["imie"] . " " . $result["nazwisko"]);
-                } else{
-                    echo("Sesja wygasła");
-                } 
-            } else{
-                echo("Sesja wygasła 1");
-            }
-        } else {
-            echo("Brak tokenu");
-        }
-    ?>
+
+<?php 
+    include 'chklgn.php';
+    if(!isset($logedin)){
+        exit();
+    }
+?>
+
+Witaj, <?php echo $result["imie"], $result["nazwisko"]; ?>! Twoje saldo: <?php echo $result["saldo"]; ?>zł<br>
+
+<a href="przelew.php">Wykonaj przelew</a><br>
+<a href="logins.php">Historia logowań</a><br>
+<a href="transactions.php">Historia przelewów</a><br>
+<a href="credit.php">Weź pożyczkę</a><br>
 
 </body>
 </html>

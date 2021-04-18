@@ -17,6 +17,7 @@
         include "app/db_config.php";
         if(isset($_COOKIE["token"])){
             $token = $_COOKIE["token"];
+            $token = mysqli_real_escape_string($conn, $token);
             $sql = "SELECT * FROM loginlog WHERE token='$token'";
             $result = mysqli_query($conn, $sql);
             $result = mysqli_fetch_assoc($result);
@@ -35,8 +36,8 @@
     <form action="login.php" method="POST">
         <div class="loginBox">
             <span>Zaloguj się</span>
-            <input type="text" placeholder="Login" class="login" required>
-            <input type="password" placeholder="Hasło" class="pass" required>
+            <input type="text" placeholder="Login" class="login" name="login" required>
+            <input type="password" placeholder="Hasło" class="pass" name="password" required>
             <button type="submit">Zaloguj</button>
         </div>
     </form>
