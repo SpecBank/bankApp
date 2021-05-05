@@ -15,7 +15,7 @@
     }
 ?>
 
-Witaj, <?php echo $result["imie"], $result["nazwisko"]; ?>! Twoje saldo: <?php echo $result["saldo"]; ?>zł<br>
+Witaj, <?php echo $result["imie"], $result["nazwisko"]; ?>! Twoje saldo: <?php echo $result["saldo"]/100; ?>zł<br>
 
 <a href="przelew.php">Wykonaj przelew</a><br>
 <a href="logins.php">Historia logowań</a><br>

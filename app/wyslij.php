@@ -10,7 +10,7 @@
 <?php 
 
     if(isset($_POST['kwota']) && isset($_POST['konto'])){
-        $kwota = $_POST['kwota'];
+        $kwota = $_POST['kwota']*100;
         $konto = $_POST['konto'];
     } else {
         echo "Nie masz dostępu do tej strony!";
