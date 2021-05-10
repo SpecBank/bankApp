@@ -20,7 +20,8 @@ Twój stan konta: <?php echo $result["saldo"]/100; ?>zł
     $saldo = $result["saldo"];
     $saldo = $saldo/100;
     echo "<input type='hidden' id='saldo' value='$saldo'>"; ?>
-    <input type="text" placeholder="Numer konta" name="konto">
+    <input type="text" placeholder="Numer konta" name="konto" require>
+    <input type="text" placeholder="Opis" value="PRZELEW" name="opis" require>
     <input type="number" step="0.01" placeholder="Kwota" name="kwota" id="kwota" onchange="sprawdz()">
     <input type="submit" value="Wyślij">
 </form>

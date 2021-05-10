@@ -48,6 +48,7 @@
                 back();
             }
             $haslo = $_POST["password"];
+            //$haslo = hash('sha256', $haslo);
             $login = $_POST["login"];
             $logindb = mysqli_real_escape_string($conn, $login);
             $sql = "SELECT haslo FROM users WHERE login='$logindb';";
