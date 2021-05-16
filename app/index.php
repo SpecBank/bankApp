@@ -18,13 +18,14 @@
         }
     ?>
 
-    <header>
+<header>
         <h1>SCIBank</h1>
     </header>
 
     <main>
     <section class="options">
         <ul>
+            <li onclick="changeVisiblity('pinfo')">Dane Konta</li>
             <li onclick="changeVisiblity('przelew')">Przelew</li>
             <li onclick="changeVisiblity('pozyczka')">Pożyczka</li>
             <li onclick="changeVisiblity('h_przel')">Historia przelewów</li>
@@ -33,21 +34,42 @@
     </section>
     
     <section class="details">
+        <section class="content invisible" id="pinfo">
+            <h3 class="title"><?php
+             $im = $result['imie'];
+             $nz = $result['nazwisko'];
+             echo("$im $nz");
+             ?></h3>
+             <section class="box">
+                 Stan konta: <?php echo($result['saldo']/100)  ?>zł
+             </section>
+             <section class="box">
+                 Numer konta: <?php echo($result['nr_banku']) ?>
+             </section>
+             <form action="logout.php">
+                <input type="submit" value="Wyloguj">
+             </form>
+        </section>
        <section class="content invisible" id="przelew">
-           <h3 class="title">Formularz</h3>
+           <h3 class="title">Wykonaj Przelew</h3>
             <form action="wyslij.php" method="POST">
                 <section class="box">
-                    Konto odbiorcy: <input type="text" placeholder="Numer konta" name="konto" class="account" require>
+                    Konto odbiorcy: <input type="text" placeholder="Numer konta" class="account" name="konto" require>
                 </section>
                 <section class="box">
-                    Ilość: <input type="number" step="0.01" class="amount" placeholder="Kwota" name="kwota" id="kwota" onchange="sprawdz()">
+                    Ilość: <input type="number" step="0.01" placeholder="Kwota" name="kwota" id="kwota" class="amount" onchange="sprawdz()">
                 </section>
-                    Opis: <input type="text" placeholder="Opis" value="PRZELEW" name="opis" require>
-                    <input type="submit" value="Wyślij">
-                    <?php 
+                <?php 
                     $saldo = $result["saldo"];
                     $saldo = $saldo/100;
-                    echo "<input type='hidden' id='saldo' value='$saldo'>"; ?>
+                    echo "<input type='hidden' id='saldo' value='$saldo'>"; 
+                ?>
+                <section class="box">
+                    Opis Przelewu: <input type="text" placeholder="Opis" value="PRZELEW" name="opis" require>
+                </section>
+                <section class="boxButton">
+                    <input type="submit" value="Wyślij">
+                </section>
             </form>
         </section> 
         <section class="content invisible" id="pozyczka">
@@ -60,34 +82,104 @@
             </section>
         </section>
         <section class="content invisible" id="h_przel">
-            <h3 class="title">Formularz</h3>
-            <section class="box">
-                Ostatni przelew: <input type="number" class="amount">
-            </section>
+            <h3 class="title">Historia przelewów</h3>
+
+            <form action="index.php" method="POST">
+                <section class="box">
+                    Ile przelewów wyświetlić: <input type="number" class="amount" name="rows" value="10">
+                </section>
+                <section class="boxButton">
+                    <input type="submit" value="Zatwierdź">
+                </section>
+            </form>
+
+            <?php
+                if(isset($_POST['rows'])){
+                    $rows = $_POST['rows'];
+                } else {
+                    $rows = 10;
+                }
+                $sql = "SELECT * FROM transactions WHERE user_ID='$id' ORDER BY ID DESC LIMIT $rows";
+                $resulthis = mysqli_query($conn, $sql);
+                while($row=mysqli_fetch_assoc($resulthis)){
+                    $nmb = $row['ID'];
+                    $data = $row['data'];
+                    $typ = $row['typ_transakcji'];
+                    $opis = $row['opis'];
+                    $kwota = $row['kwota'];
+                    $kwota = $kwota/100;
+                    $cel = $row['cel_ID'];
+
+                    $sql = "SELECT imie, nazwisko FROM users WHERE ID='$cel'";
+                    $resultim = mysqli_query($conn, $sql);
+                    $resultim = mysqli_fetch_assoc($resultim);
+                    $im = $resultim['imie'];
+                    $nz = $resultim['nazwisko'];
+                    echo("
+                    <section class='box'>    
+                        Data: $data | $typ | Opis: $opis | $kwota zł | Użytkownik docelowy: $im $nz
+                    </section>
+                    ");
+                }
+            ?>    
         </section>
         <section class="content invisible" id="h_log">
-            <h3 class="title">Formularz</h3>
-            <section class="box">
-                Ostatnie logowania: <input type="number" class="amount">
-            </section>
+            <h3 class="title">Ostatnie logowania</h3>
+            <?php
+                $sql = "SELECT ID, data, adres_ip FROM loginlog WHERE user_ID='$id' ORDER BY ID DESC LIMIT 10";
+                $resultlog = mysqli_query($conn, $sql);
+                while($row=mysqli_fetch_assoc($resultlog)){
+                    $nmb = $row['ID'];
+                    $data = $row['data'];
+                    $ip = $row['adres_ip'];
+
+                    echo("
+                    <section class='box'>
+                        Data: $data | Adres IP: $ip
+                    </section>
+                    ");
+                }
+            ?>
         </section>
     </section>
-    </main>
+
+
+
     <footer>
         <h6>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo, perspiciatis dolor. Vitae qui optio minima repellendus voluptatem libero enim quis eos dicta, hic commodi provident amet maxime ullam illum perspiciatis!
+            Strona wykorzystuje technologię ciasteczek.
         </h6>
     </footer>
-
-    <script src="index.js"></script>
+    
     <script type="text/javascript">
-    function sprawdz(){
-        if(document.getElementById("kwota").value < 0){
-            document.getElementById("kwota").value = 0
-        } else if (Number(document.getElementById("kwota").value) > Number(document.getElementById("saldo").value)){
-            document.getElementById("kwota").value = document.getElementById("saldo").value
+        const elementsArray = ['pinfo', 'przelew', 'pozyczka', 'h_przel', 'h_log']
+
+        function changeVisiblity(x){
+            elementsArray.forEach(element => {
+                document.getElementById(element).classList.add('invisible')
+            });
+            document.getElementById(x).classList.remove('invisible')
         }
-    }
-</script>
+
+        document.getElementById('pinfo').classList.remove('invisible')
+
+        function sprawdz(){
+            if(document.getElementById("kwota").value < 0){
+                document.getElementById("kwota").value = 0
+            } else if (Number(document.getElementById("kwota").value) > Number(document.getElementById("saldo").value)){
+                document.getElementById("kwota").value = document.getElementById("saldo").value
+            }
+        }
+
+        <?php 
+            if(isset($_POST['rows'])){
+                echo "
+                document.getElementById('pinfo').classList.add('invisible')
+                document.getElementById('h_przel').classList.remove('invisible')
+                ";
+            }
+        ?>
+    </script>
+    </main>
 </body>
 </html>

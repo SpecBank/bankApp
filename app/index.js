@@ -1,4 +1,4 @@
-const elementsArray = ['przelew', 'pozyczka', 'h_przel', 'h_log']
+const elementsArray = ['pinfo', 'przelew', 'pozyczka', 'h_przel', 'h_log']
 
 function changeVisiblity(x){
     elementsArray.forEach(element => {
@@ -7,5 +7,4 @@ function changeVisiblity(x){
     document.getElementById(x).classList.remove('invisible')
 }
 
-document.getElementById('przelew').classList.remove('invisible')
-
+document.getElementById('pinfo').classList.remove('invisible')
