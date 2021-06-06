@@ -68,7 +68,7 @@ body::after{
     margin-bottom: 15px;
     font-weight: 420;
 }
-.loginBox button{
+.loginBox button, .forget{
     border: none;
     outline-width: 0px;
     padding: 6px 15px;
@@ -77,6 +77,6 @@ body::after{
     transition: .3s;
 }
 
-.loginBox button:hover{
+.loginBox button:hover, .forget:hover{
     background-color: #94acb4;
 }
