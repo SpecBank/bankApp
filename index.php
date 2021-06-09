@@ -39,7 +39,6 @@
             <input type="text" placeholder="Login" class="login" name="login" required>
             <input type="password" placeholder="Hasło" class="pass" name="password" required>
             <button type="submit">Zaloguj</button>
-            <!--<a href="forget.php"><input type="button" class="forget" value="Przypomnij hasło"></a>-->
         </div>
     </form>
     
