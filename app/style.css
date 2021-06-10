@@ -116,10 +116,47 @@ li::before {
   left: 0;
 }
 
+.boxButton{
+  display: flex;
+  justify-content: center;  
+}
+button{
+    background: #efefef;
+    font-weight: 400;
+    padding: 10px 15px;
+    outline-width: 0px;
+    background: rgba(255, 255, 255, 0.24);
+    border: none;
+    color: white;
+    transition-duration: .3s;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 1px;
+}
+
+button:hover{
+  background: rgba(255, 255, 255, 0.46);
+}
+
 #loanInterval {
   margin-left: 5px;
+  width: 50px;
 }
 
 #loanAmout {
   margin-left: 5px;
+  width: 50px;
+}
+
+input{
+  text-align: center;
+  outline-width: 0px;
+  border: none;
+  border-radius: 15px;
+  padding: 7px 1px;
+  margin-bottom: 15px;
+  font-weight: 420;
+}
+
+.account{
+  width: 210px;
 }

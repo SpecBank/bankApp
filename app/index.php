@@ -48,7 +48,9 @@
                     Numer konta: <?php echo ($result['nr_banku']) ?>
                 </section>
                 <form action="logout.php">
-                    <input type="submit" value="Wyloguj">
+                    <section class="boxButton">
+                        <button>Wyloguj</button>
+                    </section>
                 </form>
             </section>
             <section class="content invisible" id="przelew">
@@ -58,7 +60,7 @@
                         Konto odbiorcy: <input type="text" placeholder="Numer konta" class="account" name="konto" require>
                     </section>
                     <section class="box">
-                        Ilość: <input type="number" step="0.01" placeholder="Kwota" name="kwota" id="kwota" class="amount" onchange="sprawdz()">
+                        Ilość: <input type="number" step="0.01" placeholder="Kwota" name="kwota" id="kwota" class="account" onchange="sprawdz()">
                     </section>
                     <?php
                     $saldo = $result["saldo"];
@@ -66,10 +68,10 @@
                     echo "<input type='hidden' id='saldo' value='$saldo'>";
                     ?>
                     <section class="box">
-                        Opis Przelewu: <input type="text" placeholder="Opis" value="PRZELEW" name="opis" require>
+                        Opis Przelewu: <input type="text" placeholder="Opis" value="PRZELEW" class="account" name="opis" require>
                     </section>
                     <section class="boxButton">
-                        <input type="submit" value="Wyślij">
+                        <button>Wyślij</button>
                     </section>
                 </form>
             </section>
@@ -85,7 +87,7 @@
                         <div id="loanInterval">1</div>
                     </section>
                     <section class="boxButton">
-                        <input type="submit" value="Zatwierdź">
+                        <button>Zatwierdź</button>
                     </section>
                 </form>
             </section>
@@ -97,7 +99,7 @@
                         Ile przelewów wyświetlić: <input type="number" class="amount" name="rows" value="10">
                     </section>
                     <section class="boxButton">
-                        <input type="submit" value="Zatwierdź">
+                        <button>Zatwierdź</button>
                     </section>
                 </form>
 
